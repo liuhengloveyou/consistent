@@ -1,12 +1,5 @@
 package consistent
 
-import (
-	"hash/crc32"
-	"sort"
-	"strconv"
-	"sync"
-)
-
 // 环上的一个节点
 type rnode struct {
 	key uint32  // val 的哈希值
@@ -22,6 +15,6 @@ type Consistent struct {
 func NewConsistent(members []string) *Consistent {
 	return &Consistent{
 		count:   0,
-		ring:    make([]rnode),
+		ring:    make([]rnode, len(members)),
 		members: members }
 }
