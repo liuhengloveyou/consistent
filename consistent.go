@@ -1,10 +1,8 @@
 package consistent
 
 import (
-	"hash/crc32"
-	"sort"
-	"strconv"
-	"sync"
+	"error"
+	"fmt"
 )
 
 // 环上的一个节点
@@ -15,13 +13,23 @@ type rnode struct {
 
 type Consistent struct {
 	count   int      // 节点个数
+	dup     int      // 节点重复次数
 	ring    []rnode  // 哈希环
 	members []string // 节点列表
 }
 
-func NewConsistent(members []string) *Consistent {
+func NewConsistent(members []string, dup int) *Consistent {
 	return &Consistent{
 		count:   0,
-		ring:    make([]rnode),
-		members: members }
+		dup:     dup,
+		ring:    make([]rnode, len(members)),
+		members: members}
+}
+
+func (this *Consistent) InitRing() error {
+
+}
+
+func (this *Consistent) dupKey(nodeVal string, idx int) string {
+	return fmt.Sprintf("%s#%d", nodeVal, idx)
 }
