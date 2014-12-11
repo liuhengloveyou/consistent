@@ -51,15 +51,16 @@ func (this *Consistent) InitRing() error {
 		for j := 0; j < this.dup; j++ {
 			this.ring[p].key = this.hashKey(this.dupKey(this.members[i], j))
 			this.ring[p].val = &this.members[i]
-			p += 1
+			p += 1 // GO的指针不能运算...
 		}
 	}
 
 	sort.Sort(this) // 排序环
 
+	/*
 	for i := 0; i < len(this.ring); i++ {
 		fmt.Println(this.ring[i].key, *this.ring[i].val)
-	}
+	}*/
 
 	return nil
 }
