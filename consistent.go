@@ -111,7 +111,7 @@ func (this *Consistent) Members() []string {
 // 一致性哈希匹配(node <= key)
 func (this *Consistent) Hash(key string) (string, error) {
 	if strings.TrimSpace(key) == "" {
-		return "", fmt.Errorf("Add empty node.")
+		return "", fmt.Errorf("Hash empty key.")
 	}
 
 	if this.count < 1 {
