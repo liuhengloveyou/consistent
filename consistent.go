@@ -125,7 +125,11 @@ func (this *Consistent) Hash(key string) (string, error) {
 	
 	p := sort.Search(len(this.ring), func(i int) bool { return this.ring[i].key > keyHash })
 	if p < len(this.ring) && this.ring[p].key > keyHash {
-		return *this.ring[p-1].val, nil
+		if p == 0 {
+			return *this.ring[len(this.ring)-1].val, nil
+		} else {
+			return *this.ring[p-1].val, nil
+		}
 	} else {
 		return *this.ring[len(this.ring)-1].val, nil
 	}
