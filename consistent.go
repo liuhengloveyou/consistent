@@ -120,7 +120,7 @@ func (this *Consistent) Hash(key string) (string, error) {
 	}
 
 	keyHash := this.hashKey(key)
-	fmt.Println(">>>", keyHash)
+	// fmt.Println(">>>", keyHash)
 	
 	p := sort.Search(len(this.ring), func(i int) bool { return this.ring[i].key > keyHash })
 	if p < len(this.ring) && this.ring[p].key > keyHash {
